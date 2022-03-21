@@ -9,6 +9,7 @@ function BookList({ book }) {
 
   //BookList 순회하면서 출력하는 건 DrawMain에서
   const gotoPage = () => {
+    //book.create의 param값을 아이디로 지정
     history.push(`/createbook/${book.create}`);
   };
 
