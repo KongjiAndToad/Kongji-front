@@ -19,6 +19,7 @@ function CreateBook({ history, match }) {
 
   //reBookId가 있으면 책수정, 없으면 책생성
   const reBookId = match.params && match.params.id;
+  //로컬스토리지에서 객체들의 배열 불러오고, 각 객체를 localBookObj에 저장
   const localBook = JSON.parse(localStorage.getItem("books") || "[]");
   const localBookObj = localBook.filter(
     (element) => element.create === reBookId
