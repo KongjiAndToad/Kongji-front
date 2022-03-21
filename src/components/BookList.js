@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 //import "@fontsource/noticia-text";
 import { useHistory } from "react-router-dom";
