@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import "@fontsource/noticia-text";
+//import "@fontsource/noticia-text";
 import { useHistory } from "react-router-dom";
 
 function BookList({ book }) {
@@ -9,6 +9,7 @@ function BookList({ book }) {
 
   //BookList 순회하면서 출력하는 건 DrawMain에서
   const gotoPage = () => {
+    //book.create의 param값을 아이디로 지정
     history.push(`/createbook/${book.create}`);
   };
 
@@ -34,7 +35,7 @@ const BookListWrap = styled.div`
   .list-title {
     padding-top: 21px;
     padding-left: 22px;
-    font-family: Noticia Text;
+    font-family: Noto Sans Tai Viet;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
