@@ -63,7 +63,7 @@ function CreateBook({ history, match }) {
   const BookSubmit = () => {
     const updateTimeStamp = moment().format("YYYY- MM-DD HH:mm:ss");
     //submit하는 시간과 현재 시간 차이를 저장
-    const diffTime = moment(updateTimeStamp, "YYYT- MM-DD HH:mm:ss").fromNow();
+    const diffTime = moment(updateTimeStamp, "YYYY- MM-DD HH:mm:ss").fromNow();
     //book 하나 객체에 위 값들 저장
     const newBook = { ...book, update: diffTime, edit: updateTimeStamp };
 
@@ -93,7 +93,7 @@ function CreateBook({ history, match }) {
       <div className="container">
         <Title />
         <Button onClick={back} className="btn-back" color="gray" size="small">
-          Back
+          돌아가기
         </Button>
         <div className="title-form">
           <input
@@ -101,7 +101,7 @@ function CreateBook({ history, match }) {
             type="text"
             value={book.title}
             onChange={titleChangeHandler}
-            placeholder="Title"
+            placeholder="제목을 입력하세요"
             maxLength="20"
           ></input>
         </div>
@@ -111,7 +111,7 @@ function CreateBook({ history, match }) {
             type="text"
             value={book.body}
             onChange={contentChangeHandler}
-            placeholder="Contents"
+            placeholder="내용을 입력하세요"
           ></textarea>
         </div>
         <div className="btn-bottom">

@@ -44,7 +44,7 @@ function DrawMain({ history }) {
             type="text"
             value={searchBook}
             onChange={changeHandler}
-            placeholder="search"
+            placeholder="검색어를 입력하세요"
           ></input>
         </form>
         <BookListContainer>

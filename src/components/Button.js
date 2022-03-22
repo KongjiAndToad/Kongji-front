@@ -7,7 +7,7 @@ function Button({ children, size, color, ...rest }) {
       theme={{
         palette: {
           pink: "rgb(232,207,207)",
-          gray: "rgb(196,196,196)",
+          gray: "rgb(50,50,50)",
           white: "rgb(255,255,255)",
         },
       }}
