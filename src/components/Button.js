@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { ThemeProvider, css } from "styled-components";
-//import { darken } from "polished";
 
 function Button({ children, size, color, ...rest }) {
   return (
@@ -40,19 +39,6 @@ const sizeStyles = css`
     height: ${sizes[size].height};
   `}
 `;
-/*
-const colorStyles = css`
-  ${(props) => {
-    const selected = props.theme.palette[props.color];
-    return css`
-      background: ${selected};
-      &:hover {
-        background: ${darken(0.2, selected)};
-      }
-    `;
-  }}
-`;
-*/
 
 const StyledButton = styled.button`
 /*공통 스타일*/
