@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { ThemeProvider, css } from "styled-components";
-import { darken } from "polished";
+import { darken, lighten } from "polished";
 
-function Button(children, size, color, ...rest) {
+function Button({ children, size, color, ...rest }) {
   return (
     <ThemeProvider
       theme={{
