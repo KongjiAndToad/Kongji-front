@@ -31,7 +31,7 @@ function CreateBook({ history, match }) {
     if (reBookId) {
       setBook(localBookObj[0]);
     }
-  }, [localBook, localBookObj, reBookId]);
+  }, []);
 
   //타이틀을 배열변수에
   const titleChangeHandler = (event) => {

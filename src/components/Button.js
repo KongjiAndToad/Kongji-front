@@ -28,7 +28,7 @@ const sizes = {
     height: "45px",
   },
   small: {
-    width: "73px",
+    width: "100px",
     height: "45px",
   },
 };
@@ -36,8 +36,8 @@ const sizes = {
 //sizeStyles, colorStyles 변수를 지정 후 공통 스타일에 삽입
 const sizeStyles = css`
   ${({ size }) => css`
-    width: "139px";
-    height: "45px";
+    width: ${sizes[size].width};
+    height: ${sizes[size].height};
   `}
 `;
 /*
