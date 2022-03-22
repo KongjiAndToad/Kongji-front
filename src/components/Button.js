@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider, css } from "styled-components";
-import { darken, lighten } from "polished";
+//import { darken } from "polished";
 
 function Button({ children, size, color, ...rest }) {
   return (
@@ -36,11 +36,11 @@ const sizes = {
 //sizeStyles, colorStyles 변수를 지정 후 공통 스타일에 삽입
 const sizeStyles = css`
   ${({ size }) => css`
-    width: ${sizes[size].width};
-    height: ${sizes[size].height};
+    width: "139px";
+    height: "45px";
   `}
 `;
-
+/*
 const colorStyles = css`
   ${(props) => {
     const selected = props.theme.palette[props.color];
@@ -52,6 +52,7 @@ const colorStyles = css`
     `;
   }}
 `;
+*/
 
 const StyledButton = styled.button`
 /*공통 스타일*/
@@ -70,5 +71,4 @@ font-size: 18px;
 letter-spacing: 0.03em;
 color: #FFFFFF;
 ${sizeStyles}
-${colorStyles}
 `;
