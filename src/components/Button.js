@@ -6,8 +6,7 @@ function Button({ children, size, color, ...rest }) {
     <ThemeProvider
       theme={{
         palette: {
-          pink: "rgb(232,207,207)",
-          gray: "rgb(50,50,50)",
+          gray: "rgb(190,190,190)",
           white: "rgb(255,255,255)",
         },
       }}
@@ -40,6 +39,15 @@ const sizeStyles = css`
   `}
 `;
 
+const colorStyles = css`
+  ${(props) => {
+    const selected = props.theme.palette[props.color];
+    return css`
+      background: ${selected};
+    `;
+  }}
+`;
+
 const StyledButton = styled.button`
 /*공통 스타일*/
 outline: none;
@@ -57,4 +65,5 @@ font-size: 18px;
 letter-spacing: 0.03em;
 color: #FFFFFF;
 ${sizeStyles}
+${colorStyles}
 `;

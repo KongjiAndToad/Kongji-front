@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Title from "../components/Title";
-//import searchIcon from "../images/searchIcon.svg";
 import styled from "styled-components";
 import BookList from "../components/BookList";
 import Button from "../components/Button";
@@ -55,7 +54,7 @@ function DrawMain({ history }) {
           onClick={gotoCreate}
           className="btn-create"
           size="large"
-          color="grey"
+          color="gray"
         >
           책 추가
         </Button>
@@ -94,17 +93,11 @@ const DrawMainWrap = styled.div`
   form {
     margin-top: 17px;
     margin-left: 56px;
-    width: 598px;
+    width: 585px;
     height: 40px;
     background: #e7e7e7;
     border-radius: 10px;
     display: flex;
-    img {
-      width: 20px;
-      height: 20px;
-      margin-top: 10px;
-      margin-left: 16px;
-    }
     input {
       border: none;
       outline: none;
@@ -119,7 +112,7 @@ const DrawMainWrap = styled.div`
     }
   }
   .btn-create {
-    margin-left: 527px;
+    margin-left: 500px;
     margin-top: 40px;
   }
 `;

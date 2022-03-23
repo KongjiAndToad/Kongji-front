@@ -118,16 +118,16 @@ function CreateBook({ history, match }) {
           <Button
             onClick={() => bookRemove(localBook)}
             className="btn-remove"
-            color="pink"
-            size="large"
+            color="gray"
+            size="small"
           >
-            책 삭제하기
+            책 삭제
           </Button>
           <Button
             onClick={BookSubmit}
             className="btn-done"
-            color="grey"
-            size="small"
+            color="gray"
+            size="large"
           >
             작성완료
           </Button>
@@ -194,7 +194,7 @@ const CreateBookWrap = styled.div`
     }
   }
   .content-form {
-    width: 598px;
+    width: 589px;
     height: 254px;
     background: #ffffff;
     border-radius: 20px;
