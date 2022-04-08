@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Title from "../components/Title";
 import styled from "styled-components";
 import BookList from "../components/BookList";
 import Button from "../components/Button";
 
 function DrawMain({ history }) {
+  const baseUrl = "http://localhost:8000";
+
+  useEffect(() => {
+    getBooks();
+  }, []); //빈 배열 줌으로서 시작시 한번만 실행하게 함
+
+  //async, await: 비동기 호출(데이터 받을 때까지 기다림)을 가능케 함
+  async function getBooks() {
+    //const ret = [];
+    await axios
+      .get(baseUrl + "/books")
+      .then((response) => {
+        console.log(response.data.RESULT);
+        setBooks(response.data.RESULT);
+        //ret = response.data.RESULT;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //return { ret };
+  }
   //search 인풋 받을 state 변수
   const [searchBook, setSearchBook] = useState();
   //뷰에 보일 book 구성할 state 변수
   const [books, setBooks] = useState(
-    JSON.parse(localStorage.getItem("books") || "[]")
+    []
+    //JSON.parse(localStorage.getItem("books") || "[]")
   );
+
   //뷰에 보일 book를 구성하기 위한 로컬스토리지 값
   const localBooks = JSON.parse(localStorage.getItem("books"));
+
   //search Input태그의 onchange값 제어
   const changeHandler = (event) => {
     setSearchBook(event.target.value); //input값 조정하기 위해서 필요
@@ -24,7 +49,7 @@ function DrawMain({ history }) {
     if (event.target.value) {
       setBooks(filterBooks);
     } else {
-      //인풋값이 없으면 그냥 로컬스토리지 모든 노
+      //인풋값이 없으면 그냥 로컬스토리지 모든 책 보여줌
       setBooks(JSON.parse(localStorage.getItem("books")));
     }
   };
