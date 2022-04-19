@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import Title from "../components/Title";
 import styled from "styled-components";
 
-function CreateBook({ history, match }) {
+function BookReader({ history, match }) {
   //moment JS 사용 준비
   const moment = require("moment");
   //createtime 이 페이지를 열자마자 시간을 timestamp에 저장
@@ -96,23 +96,21 @@ function CreateBook({ history, match }) {
           돌아가기
         </Button>
         <div className="title-form">
-          <input
-            className="title-form--input"
+          <h2
+            className="title-form--t"
             type="text"
             value={book.title}
             onChange={titleChangeHandler}
-            placeholder="제목을 입력하세요"
             maxLength="20"
-          ></input>
+          ></h2>
         </div>
         <div className="content-form">
-          <textarea
-            className="content-form--input"
+          <p
+            className="content-form--p"
             type="text"
             value={book.body}
             onChange={contentChangeHandler}
-            placeholder="내용을 입력하세요"
-          ></textarea>
+          ></p>
         </div>
         <div className="btn-bottom">
           <Button
@@ -137,9 +135,9 @@ function CreateBook({ history, match }) {
   );
 }
 
-export default CreateBook;
+export default BookReader;
 
-const CreateBookWrap = styled.div`
+const BookReaderWrap = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -178,7 +176,7 @@ const CreateBookWrap = styled.div`
     border-radius: 20px;
     margin-top: 33px;
     margin-left: 56px;
-    &--input {
+    &--t {
       font-family: Noticia Text;
       font-style: normal;
       font-weight: normal;
@@ -200,7 +198,7 @@ const CreateBookWrap = styled.div`
     border-radius: 20px;
     margin-top: 15px;
     margin-left: 56px;
-    &--input {
+    &--p {
       font-family: Noticia Text;
       font-style: normal;
       font-weight: normal;
