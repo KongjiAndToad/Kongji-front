@@ -6,7 +6,7 @@ import BookList from "../components/BookList";
 import Button from "../components/Button";
 
 function DrawMain({ history }) {
-  const baseUrl = "http://localhost:8000";
+  const baseUrl = "http://54.180.26.235:8000";
 
   useEffect(() => {
     getBooks();
