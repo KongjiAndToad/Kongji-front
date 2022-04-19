@@ -60,7 +60,7 @@ function BookReader({ history, match }) {
   };
 
   //submit할 때 실행
-  const BookSubmit = () => {
+  const AudioPlay = () => {
     const updateTimeStamp = moment().format("YYYY- MM-DD HH:mm:ss");
     //submit하는 시간과 현재 시간 차이를 저장
     const diffTime = moment(updateTimeStamp, "YYYY- MM-DD HH:mm:ss").fromNow();
@@ -89,12 +89,8 @@ function BookReader({ history, match }) {
   };
 
   return (
-    <CreateBookWrap>
+    <BookReaderWrap>
       <div className="container">
-        <Title />
-        <Button onClick={back} className="btn-back" color="gray" size="small">
-          돌아가기
-        </Button>
         <div className="title-form">
           <h2
             className="title-form--t"
@@ -113,6 +109,9 @@ function BookReader({ history, match }) {
           ></p>
         </div>
         <div className="btn-bottom">
+          <Button onClick={back} className="btn-back" color="gray" size="small">
+            돌아가기
+          </Button>
           <Button
             onClick={() => bookRemove(localBook)}
             className="btn-remove"
@@ -122,16 +121,24 @@ function BookReader({ history, match }) {
             책 삭제
           </Button>
           <Button
-            onClick={BookSubmit}
-            className="btn-done"
+            onClick={AudioPlay}
+            className="btn-play"
             color="gray"
-            size="large"
+            size="small"
           >
-            작성완료
+            ▶︎
+          </Button>
+          <Button
+            //onClick={AudioPause}
+            className="btn-pause"
+            color="gray"
+            size="small"
+          >
+           ❚❚
           </Button>
         </div>
       </div>
-    </CreateBookWrap>
+    </BookReaderWrap>
   );
 }
 
@@ -154,21 +161,25 @@ const BookReaderWrap = styled.div`
     box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.15);
     border-radius: 70px;
   }
-  .btn-back {
-    margin-top: 33px;
-    margin-left: 56px;
+  .btn-play {
+    margin-left: 229px;
+  }
+  .btn-pause {
+    margin-left: 9px;
+    margin-right: 56px;
   }
   .btn-bottom {
     width: 710px;
     display: flex;
     margin-top: 39px;
   }
-  .btn-remove {
+  .btn-back {
     margin-left: 56px;
   }
-  .btn-done {
-    margin-left: 379px;
+  .btn-remove {
+    margin-left: 9px;
   }
+
   .title-form {
     width: 591px;
     height: 51px;
@@ -193,7 +204,7 @@ const BookReaderWrap = styled.div`
   }
   .content-form {
     width: 589px;
-    height: 254px;
+    height: 554px;
     background: #ffffff;
     border-radius: 20px;
     margin-top: 15px;
@@ -207,8 +218,8 @@ const BookReaderWrap = styled.div`
       padding-top: 20px;
       border: none;
       outline: none;
-      width: 598px;
-      height: 254px;
+      width: 589px;
+      height: 554px;
       background: #ffffff;
       color: #2d2d2d;
       border-radius: 20px;
