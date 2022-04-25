@@ -8,14 +8,14 @@ function BookList({ book }) {
   const history = useHistory();
 
   //BookList 순회하면서 출력하는 건 DrawMain에서
-  const gotoPage = () => {
+  const gotoPage = (id) => {
     //book.create의 param값을 아이디로 지정
-    history.push(`/createbook/${book.create}`);
+    history.push(`/bookreader/${id}`);
   };
 
   return (
     <BookListWrap>
-      <div onClick={gotoPage} className="list-container">
+      <div onClick={() => gotoPage(book.book_id)} className="list-container">
         <div className="list-title">{book.title}</div>
       </div>
     </BookListWrap>

@@ -12,6 +12,7 @@ function App() {
         <Route exact path="/createbook" component={CreateBook} />
         <Route path="/createbook/:id" component={CreateBook} />
         <Route exact path="/bookreader" component={BookReader} />
+        <Route exact path="/bookreader/:id" component={BookReader} />
       </Switch>
     </BrowserRouter>
   );
