@@ -9,9 +9,8 @@ function CreateBook({ history, match }) {
   //로컬스토리지 배열 내부 객체 하나
   const [book, setBook] = useState({
     title: "",
-    content: "",
+    text: "",
   });
-
   //타이틀을 배열변수에
   const titleChangeHandler = (event) => {
     event.preventDefault();
@@ -21,7 +20,7 @@ function CreateBook({ history, match }) {
   //내용을 배열변수에
   const contentChangeHandler = (event) => {
     event.preventDefault();
-    setBook({ ...book, content: event.target.value });
+    setBook({ ...book, text: event.target.value });
   };
 
   //submit할 때 실행
@@ -56,7 +55,7 @@ function CreateBook({ history, match }) {
           <textarea
             className="content-form--input"
             type="text"
-            value={book.content}
+            value={book.text}
             onChange={contentChangeHandler}
             placeholder="내용을 입력하세요"
           ></textarea>
