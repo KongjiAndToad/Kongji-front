@@ -1,21 +1,46 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
+import axios from "axios";
 import Title from "../components/Title";
 import styled from "styled-components";
 
 function BookReader({ history, match }) {
+  const baseUrl = "http://localhost:8000";
+  const {id} = match.params;
+
+  useEffect(() => {
+    getBook();
+  }, []);
+
+  async function getBook() {
+    //const ret = [];
+    await axios
+      .get(baseUrl+"/books/"+id)
+      .then((response) => {
+        setBook(response.data);
+        console.log(book);
+        //ret = response.data.RESULT;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //return { ret };
+  }
+
+  //뷰에 보일 book 구성할 state 변수
+  const [book, setBook] = useState({
+    "id": 20,
+    "title": "제대로 테스트",
+    "content": "이것은 오디오를 생성해보기 위해 작성한 테스트입니다.",
+    "audio": "https://toad-server-bucket.s3.ap-northeast-2.amazonaws.com/tts-audio88319848bb1111eca3fb1e00d902127a.wav"
+});
+
+
   //moment JS 사용 준비
   const moment = require("moment");
   //createtime 이 페이지를 열자마자 시간을 timestamp에 저장
   const timestamp = moment().format("YYYY-MM-DD HH:mm:ss");
   //로컬스토리지 배열 내부 객체 하나
-  const [book, setBook] = useState({
-    title: "",
-    body: "",
-    create: timestamp,
-    update: "업데이트",
-    edit: "",
-  });
 
   //reBookId가 있으면 책수정, 없으면 책생성
   const reBookId = match.params && match.params.id;
@@ -33,34 +58,10 @@ function BookReader({ history, match }) {
     }
   }, []);
 
-  //타이틀을 배열변수에
-  const titleChangeHandler = (event) => {
-    event.preventDefault();
-    setBook({ ...book, title: event.target.value });
-  };
-
-  //내용을 배열변수에
-  const contentChangeHandler = (event) => {
-    event.preventDefault();
-    setBook({ ...book, body: event.target.value });
-  };
-
-  //완성된 책객체 하나를 로컬스토리지 배열에 저장
-  const saveBooks = (newBook) => {
-    setBook(newBook);
-    let newBooks;
-    if (reBookId) {
-      newBooks = localBook.map((element) =>
-        element.create === book.create ? newBook : element
-      );
-    } else {
-      newBooks = [...localBook, newBook];
-    }
-    localStorage.setItem("books", JSON.stringify(newBooks));
-  };
-
   //submit할 때 실행
   const AudioPlay = () => {
+    const audio = new Audio(book.audio);
+    audio.play();
     const updateTimeStamp = moment().format("YYYY- MM-DD HH:mm:ss");
     //submit하는 시간과 현재 시간 차이를 저장
     const diffTime = moment(updateTimeStamp, "YYYY- MM-DD HH:mm:ss").fromNow();
@@ -70,7 +71,6 @@ function BookReader({ history, match }) {
     localBook.map(
       (e) => (e.update = moment(e.edit, "YYYY- MM-DD HH:mm:ss").fromNow())
     );
-    saveBooks(newBook);
     history.push("/");
   };
 
@@ -92,21 +92,10 @@ function BookReader({ history, match }) {
     <BookReaderWrap>
       <div className="container">
         <div className="title-form">
-          <h2
-            className="title-form--t"
-            type="text"
-            value={book.title}
-            onChange={titleChangeHandler}
-            maxLength="20"
-          ></h2>
+          <h2>{book?.title}</h2>
         </div>
         <div className="content-form">
-          <p
-            className="content-form--p"
-            type="text"
-            value={book.body}
-            onChange={contentChangeHandler}
-          ></p>
+          <p>{book?.content}</p>
         </div>
         <div className="btn-bottom">
           <Button onClick={back} className="btn-back" color="gray" size="small">

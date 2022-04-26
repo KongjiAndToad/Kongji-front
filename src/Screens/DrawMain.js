@@ -4,9 +4,10 @@ import Title from "../components/Title";
 import styled from "styled-components";
 import BookList from "../components/BookList";
 import Button from "../components/Button";
+import {Link} from "react-router-dom";
 
 function DrawMain({ history }) {
-  const baseUrl = "http://54.180.26.235:8000";
+  baseUrl = "http://localhost:8000"
 
   useEffect(() => {
     getBooks();
@@ -86,6 +87,7 @@ function DrawMain({ history }) {
       </div>
     </DrawMainWrap>
   );
+
 }
 
 export default DrawMain;
