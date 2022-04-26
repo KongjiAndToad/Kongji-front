@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 function BookReader({ history, match }) {
   const baseUrl = "http://54.180.26.235:8000";
-  const {id} = match.params;
+  const { id } = match.params;
 
   useEffect(() => {
     getBook();
@@ -15,7 +15,7 @@ function BookReader({ history, match }) {
   async function getBook() {
     //const ret = [];
     await axios
-      .get(baseUrl+"/books/"+id)
+      .get(baseUrl + "/books/" + id)
       .then((response) => {
         setBook(response.data);
         console.log(response.data);
@@ -33,15 +33,14 @@ function BookReader({ history, match }) {
 
   const playAudio = (e) => {
     console.log(book?.audio);
-    audio.loop = false; 
+    audio.loop = false;
     audio.volume = 0.5;
     audio.play();
   };
 
   const pauseAudio = (e) => {
     audio.pause();
-  }
- 
+  };
 
   //back 버튼, 누르면 메인으로 돌아감
   const back = () => {
@@ -52,7 +51,7 @@ function BookReader({ history, match }) {
   async function removeBook() {
     //const ret = [];
     await axios
-      .delete(baseUrl+"/books/"+id)
+      .delete(baseUrl + "/books/" + id)
       .then(() => {
         history.push("/");
       })
@@ -64,15 +63,35 @@ function BookReader({ history, match }) {
   return (
     <BookReaderWrap>
       <div className="container">
-        <div className="title-form">
-          <h2>{book?.title}</h2>
+        <div>
+          <div className="title-form">
+            <h1 className="title">{book?.title}</h1>
+          </div>
+          <div className="btns-top">
+            <Button
+              onClick={() => playAudio()}
+              className="btn-play"
+              color="gray"
+              size="small"
+            >
+              ▶︎
+            </Button>
+            <Button
+              onClick={() => pauseAudio()}
+              className="btn-pause"
+              color="gray"
+              size="small"
+            >
+              ❚❚
+            </Button>
+          </div>
         </div>
         <div className="content-form">
-          <p>{book?.content}</p>
+          <p className="content">{book?.content}</p>
         </div>
-        <div className="btn-bottom">
+        <div className="btns-bottom">
           <Button onClick={back} className="btn-back" color="gray" size="small">
-            돌아가기
+            &lt;돌아가기
           </Button>
           <Button
             onClick={() => removeBook()}
@@ -81,22 +100,6 @@ function BookReader({ history, match }) {
             size="small"
           >
             책 삭제
-          </Button>
-          <Button
-            onClick={() => playAudio()}
-            className="btn-play"
-            color="gray"
-            size="small"
-          >
-            ▶︎
-          </Button>
-          <Button
-            onClick={() => pauseAudio()}
-            className="btn-pause"
-            color="gray"
-            size="small"
-          >
-           ❚❚
           </Button>
         </div>
       </div>
@@ -112,9 +115,38 @@ const BookReaderWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  .title {
-    margin-top: 104px;
+
+  .btns-top {
+    float: right;
+    width: 400px;
+    display: flex;
+    margin-top: -50px;
+  }
+  .title-form {
+    width: 450px;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 20px;
+    margin-top: 46px;
     margin-left: 56px;
+  }
+  .title {
+    padding-top: 7px;
+    padding-left: 24px;
+  }
+  .content-form {
+    width: 600px;
+    height: 554px;
+    background: #ffffff;
+    border-radius: 20px;
+    margin-top: 15px;
+    margin-left: 56px;
+  }
+  .content {
+    padding-top: 20px;
+    padding-left: 24px;
+    padding-right: 20px;
+    font-size: large;
   }
   .container {
     width: 710px;
@@ -130,62 +162,15 @@ const BookReaderWrap = styled.div`
     margin-left: 9px;
     margin-right: 56px;
   }
-  .btn-bottom {
+  .btns-bottom {
     width: 710px;
     display: flex;
-    margin-top: 39px;
+    margin-top: 20px;
   }
   .btn-back {
     margin-left: 56px;
   }
   .btn-remove {
-    margin-left: 9px;
-  }
-
-  .title-form {
-    width: 591px;
-    height: 51px;
-    background: #ffffff;
-    border-radius: 20px;
-    margin-top: 33px;
-    margin-left: 56px;
-    &--t {
-      font-family: Noticia Text;
-      font-style: normal;
-      font-weight: normal;
-      letter-spacing: 0.03em;
-      padding-left: 15px;
-      border: none;
-      outline: none;
-      width: 591px;
-      height: 51px;
-      background: #ffffff;
-      color: #2d2d2d;
-      border-radius: 20px;
-    }
-  }
-  .content-form {
-    width: 589px;
-    height: 554px;
-    background: #ffffff;
-    border-radius: 20px;
-    margin-top: 15px;
-    margin-left: 56px;
-    &--p {
-      font-family: Noticia Text;
-      font-style: normal;
-      font-weight: normal;
-      letter-spacing: 0.03em;
-      padding-left: 15px;
-      padding-top: 20px;
-      border: none;
-      outline: none;
-      width: 589px;
-      height: 554px;
-      background: #ffffff;
-      color: #2d2d2d;
-      border-radius: 20px;
-      resize: none;
-    }
+    margin-left: 398px;
   }
 `;
