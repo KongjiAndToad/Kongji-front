@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import styled from "styled-components";
 
 function BookReader({ history, match }) {
-  const baseUrl = "http://localhost:8000";
+  const baseUrl = "http://54.180.26.235:8000";
   const {id} = match.params;
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function BookReader({ history, match }) {
       .get(baseUrl+"/books/"+id)
       .then((response) => {
         setBook(response.data);
-        console.log(book);
+        console.log(response.data);
         //ret = response.data.RESULT;
       })
       .catch((error) => {
@@ -28,12 +28,19 @@ function BookReader({ history, match }) {
   }
 
   //뷰에 보일 book 구성할 state 변수
-  const [book, setBook] = useState({
-    "id": 20,
-    "title": "제대로 테스트",
-    "content": "이것은 오디오를 생성해보기 위해 작성한 테스트입니다.",
-    "audio": "https://toad-server-bucket.s3.ap-northeast-2.amazonaws.com/tts-audio88319848bb1111eca3fb1e00d902127a.wav"
-});
+  const [book, setBook] = useState({});
+  const audio = new Audio(book?.audio);
+
+  const playAudio = (e) => {
+    console.log(book?.audio);
+    audio.loop = false; 
+    audio.volume = 0.5;
+    audio.play();
+  };
+
+  const pauseAudio = (e) => {
+    audio.pause();
+  }
 
 
   //moment JS 사용 준비
@@ -58,6 +65,7 @@ function BookReader({ history, match }) {
     }
   }, []);
 
+  
   //submit할 때 실행
   const AudioPlay = () => {
     const audio = new Audio(book.audio);
@@ -110,7 +118,7 @@ function BookReader({ history, match }) {
             책 삭제
           </Button>
           <Button
-            onClick={AudioPlay}
+            onClick={() => playAudio()}
             className="btn-play"
             color="gray"
             size="small"
@@ -118,7 +126,7 @@ function BookReader({ history, match }) {
             ▶︎
           </Button>
           <Button
-            //onClick={AudioPause}
+            onClick={() => pauseAudio()}
             className="btn-pause"
             color="gray"
             size="small"
