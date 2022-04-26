@@ -2,36 +2,15 @@ import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import styled from "styled-components";
+import axios from "axios";
 
 function CreateBook({ history, match }) {
-  //moment JS 사용 준비
-  const moment = require("moment");
-  //createtime 이 페이지를 열자마자 시간을 timestamp에 저장
-  const timestamp = moment().format("YYYY-MM-DD HH:mm:ss");
+  const baseUrl = "http://54.180.26.235:8000";
   //로컬스토리지 배열 내부 객체 하나
   const [book, setBook] = useState({
     title: "",
-    body: "",
-    create: timestamp,
-    update: "업데이트",
-    edit: "",
+    content: "",
   });
-
-  //reBookId가 있으면 책수정, 없으면 책생성
-  const reBookId = match.params && match.params.id;
-  //로컬스토리지에서 객체들의 배열 불러오고, 각 객체를 localBookObj에 저장
-  const localBook = JSON.parse(localStorage.getItem("books") || "[]");
-  const localBookObj = localBook.filter(
-    (element) => element.create === reBookId
-  );
-
-  //렌더 한 번 더 될 때 reBookId값이 있으면 localBookObj에서 그 객체 가져와서 기본 book에 set
-  useEffect(() => {
-    console.log(localBook, reBookId);
-    if (reBookId) {
-      setBook(localBookObj[0]);
-    }
-  }, []);
 
   //타이틀을 배열변수에
   const titleChangeHandler = (event) => {
@@ -42,49 +21,17 @@ function CreateBook({ history, match }) {
   //내용을 배열변수에
   const contentChangeHandler = (event) => {
     event.preventDefault();
-    setBook({ ...book, body: event.target.value });
-  };
-
-  //완성된 책객체 하나를 로컬스토리지 배열에 저장
-  const saveBooks = (newBook) => {
-    setBook(newBook);
-    let newBooks;
-    if (reBookId) {
-      newBooks = localBook.map((element) =>
-        element.create === book.create ? newBook : element
-      );
-    } else {
-      newBooks = [...localBook, newBook];
-    }
-    localStorage.setItem("books", JSON.stringify(newBooks));
+    setBook({ ...book, content: event.target.value });
   };
 
   //submit할 때 실행
   const BookSubmit = () => {
-    const updateTimeStamp = moment().format("YYYY- MM-DD HH:mm:ss");
-    //submit하는 시간과 현재 시간 차이를 저장
-    const diffTime = moment(updateTimeStamp, "YYYY- MM-DD HH:mm:ss").fromNow();
-    //book 하나 객체에 위 값들 저장
-    const newBook = { ...book, update: diffTime, edit: updateTimeStamp };
-
-    localBook.map(
-      (e) => (e.update = moment(e.edit, "YYYY- MM-DD HH:mm:ss").fromNow())
-    );
-    saveBooks(newBook);
+    axios.post(baseUrl + "/books", book);
     history.push("/");
   };
 
-  //back 버튼, 누르면 메인으로 돌아감
+  //back 버튼 :누르면 메인으로 돌아감
   const back = () => {
-    history.push("/");
-  };
-
-  //책 삭제 함수, 현재 수정중인 book 객체의 create는 book.create이므로 이것과 다른 값들만 저장해서 새롭게 로컬스토리지에 세팅한다.
-  const bookRemove = (localBook) => {
-    const notNowBook = localBook.filter(
-      (element) => element.create !== book.create
-    );
-    localStorage.setItem("books", JSON.stringify(notNowBook));
     history.push("/");
   };
 
@@ -109,20 +56,12 @@ function CreateBook({ history, match }) {
           <textarea
             className="content-form--input"
             type="text"
-            value={book.body}
+            value={book.content}
             onChange={contentChangeHandler}
             placeholder="내용을 입력하세요"
           ></textarea>
         </div>
         <div className="btn-bottom">
-          <Button
-            onClick={() => bookRemove(localBook)}
-            className="btn-remove"
-            color="gray"
-            size="small"
-          >
-            책 삭제
-          </Button>
           <Button
             onClick={BookSubmit}
             className="btn-done"
@@ -165,11 +104,8 @@ const CreateBookWrap = styled.div`
     display: flex;
     margin-top: 39px;
   }
-  .btn-remove {
-    margin-left: 56px;
-  }
   .btn-done {
-    margin-left: 379px;
+    margin-left: 529px;
   }
   .title-form {
     width: 591px;
