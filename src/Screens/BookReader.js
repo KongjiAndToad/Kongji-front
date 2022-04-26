@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import styled from "styled-components";
 
 function BookReader({ history, match }) {
-  const baseUrl = "http://localhost:8000";
+  const baseUrl = "http://54.180.26.235:8000";
   const {id} = match.params;
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function BookReader({ history, match }) {
       .get(baseUrl+"/books/"+id)
       .then((response) => {
         setBook(response.data);
-        console.log(book);
+        console.log(response.data);
         //ret = response.data.RESULT;
       })
       .catch((error) => {
@@ -28,51 +28,20 @@ function BookReader({ history, match }) {
   }
 
   //뷰에 보일 book 구성할 state 변수
-  const [book, setBook] = useState({
-    "id": 20,
-    "title": "제대로 테스트",
-    "content": "이것은 오디오를 생성해보기 위해 작성한 테스트입니다.",
-    "audio": "https://toad-server-bucket.s3.ap-northeast-2.amazonaws.com/tts-audio88319848bb1111eca3fb1e00d902127a.wav"
-});
+  const [book, setBook] = useState({});
+  const audio = new Audio(book?.audio);
 
-
-  //moment JS 사용 준비
-  const moment = require("moment");
-  //createtime 이 페이지를 열자마자 시간을 timestamp에 저장
-  const timestamp = moment().format("YYYY-MM-DD HH:mm:ss");
-  //로컬스토리지 배열 내부 객체 하나
-
-  //reBookId가 있으면 책수정, 없으면 책생성
-  const reBookId = match.params && match.params.id;
-  //로컬스토리지에서 객체들의 배열 불러오고, 각 객체를 localBookObj에 저장
-  const localBook = JSON.parse(localStorage.getItem("books") || "[]");
-  const localBookObj = localBook.filter(
-    (element) => element.create === reBookId
-  );
-
-  //렌더 한 번 더 될 때 reBookId값이 있으면 localBookObj에서 그 객체 가져와서 기본 book에 set
-  useEffect(() => {
-    console.log(localBook, reBookId);
-    if (reBookId) {
-      setBook(localBookObj[0]);
-    }
-  }, []);
-
-  //submit할 때 실행
-  const AudioPlay = () => {
-    const audio = new Audio(book.audio);
+  const playAudio = (e) => {
+    console.log(book?.audio);
+    audio.loop = false; 
+    audio.volume = 0.5;
     audio.play();
-    const updateTimeStamp = moment().format("YYYY- MM-DD HH:mm:ss");
-    //submit하는 시간과 현재 시간 차이를 저장
-    const diffTime = moment(updateTimeStamp, "YYYY- MM-DD HH:mm:ss").fromNow();
-    //book 하나 객체에 위 값들 저장
-    const newBook = { ...book, update: diffTime, edit: updateTimeStamp };
-
-    localBook.map(
-      (e) => (e.update = moment(e.edit, "YYYY- MM-DD HH:mm:ss").fromNow())
-    );
-    history.push("/");
   };
+
+  const pauseAudio = (e) => {
+    audio.pause();
+  }
+ 
 
   //back 버튼, 누르면 메인으로 돌아감
   const back = () => {
@@ -80,13 +49,17 @@ function BookReader({ history, match }) {
   };
 
   //책 삭제 함수, 현재 수정중인 book 객체의 create는 book.create이므로 이것과 다른 값들만 저장해서 새롭게 로컬스토리지에 세팅한다.
-  const bookRemove = (localBook) => {
-    const notNowBook = localBook.filter(
-      (element) => element.create !== book.create
-    );
-    localStorage.setItem("books", JSON.stringify(notNowBook));
-    history.push("/");
-  };
+  async function removeBook() {
+    //const ret = [];
+    await axios
+      .delete(baseUrl+"/books/"+id)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   return (
     <BookReaderWrap>
@@ -102,7 +75,7 @@ function BookReader({ history, match }) {
             돌아가기
           </Button>
           <Button
-            onClick={() => bookRemove(localBook)}
+            onClick={() => removeBook()}
             className="btn-remove"
             color="gray"
             size="small"
@@ -110,7 +83,7 @@ function BookReader({ history, match }) {
             책 삭제
           </Button>
           <Button
-            onClick={AudioPlay}
+            onClick={() => playAudio()}
             className="btn-play"
             color="gray"
             size="small"
@@ -118,7 +91,7 @@ function BookReader({ history, match }) {
             ▶︎
           </Button>
           <Button
-            //onClick={AudioPause}
+            onClick={() => pauseAudio()}
             className="btn-pause"
             color="gray"
             size="small"
