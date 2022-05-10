@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import styled from "styled-components";
 
 function BookReader({ history, match }) {
-  const baseUrl = "http://54.180.26.235:8000";
+  const baseUrl = "/api";
   const { id } = match.params;
 
   useEffect(() => {
