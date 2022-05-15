@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import axios from "axios";
-import Title from "../components/Title";
 import styled from "styled-components";
 
 function BookReader({ history, match }) {
@@ -13,18 +12,15 @@ function BookReader({ history, match }) {
   }, []);
 
   async function getBook() {
-    //const ret = [];
     await axios
       .get(baseUrl + "/books/" + id)
       .then((response) => {
         setBook(response.data);
         console.log(response.data);
-        //ret = response.data.RESULT;
       })
       .catch((error) => {
         console.error(error);
       });
-    //return { ret };
   }
 
   //뷰에 보일 book 구성할 state 변수
@@ -65,13 +61,13 @@ function BookReader({ history, match }) {
       <div className="container">
         <div>
           <div className="title-form">
-            <h1 className="title">{book?.title}</h1>
+            <p className="title">{book?.title}</p>
           </div>
           <div className="btns-top">
             <Button
               onClick={() => playAudio()}
               className="btn-play"
-              color="gray"
+              color="brwn"
               size="small"
             >
               ▶︎
@@ -79,7 +75,7 @@ function BookReader({ history, match }) {
             <Button
               onClick={() => pauseAudio()}
               className="btn-pause"
-              color="gray"
+              color="brwn"
               size="small"
             >
               ❚❚
@@ -90,13 +86,13 @@ function BookReader({ history, match }) {
           <p className="content">{book?.content}</p>
         </div>
         <div className="btns-bottom">
-          <Button onClick={back} className="btn-back" color="gray" size="small">
+          <Button onClick={back} className="btn-back" color="brwn" size="small">
             돌아가기
           </Button>
           <Button
             onClick={() => removeBook()}
             className="btn-remove"
-            color="gray"
+            color="brwn"
             size="small"
           >
             책 삭제
@@ -125,33 +121,34 @@ const BookReaderWrap = styled.div`
   .title-form {
     width: 450px;
     height: 60px;
-    background: #ffffff;
+    background: #feffcd;
     border-radius: 20px;
     margin-top: 46px;
     margin-left: 56px;
   }
   .title {
-    padding-top: 7px;
+    padding-top: 0px;
     padding-left: 24px;
+    font-size: 45px;
   }
   .content-form {
     width: 600px;
-    height: 554px;
-    background: #ffffff;
+    height: 550px;
+    background: #feffcd;
     border-radius: 20px;
-    margin-top: 15px;
+    margin-top: -15px;
     margin-left: 56px;
   }
   .content {
-    padding-top: 20px;
+    padding-top: 5px;
     padding-left: 24px;
     padding-right: 20px;
-    font-size: large;
+    font-size: 36px;
   }
   .container {
     width: 710px;
     height: 777px;
-    background: #f5f5f5;
+    background: #fdf0bc;
     box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.15);
     border-radius: 70px;
   }

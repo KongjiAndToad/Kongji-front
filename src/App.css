@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "dokdo";
-  src: url("https://fonts.googleapis.com/css?family=East+Sea+Dokdo:400");
+  font-family: "Dokdo";
+  src: url("./fonts/EastSeaDokdo-Regular.ttf");
 }
 
 * {
-  font-family: "dokdo" !important;
+  font-family: "Dokdo" !important;
 }
