@@ -88,6 +88,7 @@ function BookReader({ history, match }) {
         <div className="btns-bottom">
           <Button onClick={back} className="btn-back" color="brwn" size="small">
             돌아가기
+
           </Button>
           <Button
             onClick={() => removeBook()}
