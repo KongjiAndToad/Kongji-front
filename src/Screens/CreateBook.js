@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import styled from "styled-components";
@@ -20,7 +20,10 @@ function CreateBook({ history, match }) {
   //내용을 배열변수에
   const contentChangeHandler = (event) => {
     event.preventDefault();
-    setBook({ ...book, text: event.target.value });
+    setBook({
+      ...book,
+      text: event.target.value.replace(/(\r\n|\n|\r)/gm, ""),
+    });
   };
 
   //submit할 때 실행
@@ -38,7 +41,7 @@ function CreateBook({ history, match }) {
     <CreateBookWrap>
       <div className="container">
         <Title />
-        <Button onClick={back} className="btn-back" color="gray" size="small">
+        <Button onClick={back} className="btn-back" color="brwn" size="small">
           돌아가기
         </Button>
         <div className="title-form">
@@ -64,7 +67,7 @@ function CreateBook({ history, match }) {
           <Button
             onClick={BookSubmit}
             className="btn-done"
-            color="gray"
+            color="brwn"
             size="large"
           >
             작성완료
@@ -90,7 +93,7 @@ const CreateBookWrap = styled.div`
   .container {
     width: 710px;
     height: 777px;
-    background: #f5f5f5;
+    background: #fdf0bc;
     box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.15);
     border-radius: 70px;
   }
@@ -107,23 +110,23 @@ const CreateBookWrap = styled.div`
     margin-left: 529px;
   }
   .title-form {
-    width: 591px;
+    width: 589px;
     height: 51px;
-    background: #ffffff;
+    background: #feffcd;
     border-radius: 20px;
     margin-top: 33px;
-    margin-left: 56px;
+    margin-left: 50px;
     &--input {
-      font-family: Noticia Text;
       font-style: normal;
       font-weight: normal;
+      font-size: 32px;
       letter-spacing: 0.03em;
       padding-left: 15px;
       border: none;
       outline: none;
       width: 591px;
       height: 51px;
-      background: #ffffff;
+      background: #feffcd;
       color: #2d2d2d;
       border-radius: 20px;
     }
@@ -131,22 +134,22 @@ const CreateBookWrap = styled.div`
   .content-form {
     width: 589px;
     height: 254px;
-    background: #ffffff;
+    background: #feffcd;
     border-radius: 20px;
     margin-top: 15px;
-    margin-left: 56px;
+    margin-left: 50px;
     &--input {
-      font-family: Noticia Text;
       font-style: normal;
       font-weight: normal;
+      font-size: 30px;
       letter-spacing: 0.03em;
       padding-left: 15px;
-      padding-top: 20px;
+      padding-top: 10px;
       border: none;
       outline: none;
       width: 598px;
       height: 254px;
-      background: #ffffff;
+      background: #feffcd;
       color: #2d2d2d;
       border-radius: 20px;
       resize: none;

@@ -29,16 +29,15 @@ const BookListWrap = styled.div`
   .list-container {
     width: 583px;
     height: 111px;
-    background: #ffffff;
+    background: #feffcd;
     border-radius: 20px;
   }
   .list-title {
     padding-top: 21px;
     padding-left: 22px;
-    font-family: Noto Sans Tai Viet;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 36px;
     line-height: 33px;
     letter-spacing: 0.03em;
     color: #0a0909;

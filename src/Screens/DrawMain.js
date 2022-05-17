@@ -20,39 +20,16 @@ function DrawMain({ history }) {
       .then((response) => {
         console.log(response.data.RESULT);
         setBooks(response.data.RESULT);
-        //ret = response.data.RESULT;
       })
       .catch((error) => {
         console.error(error);
       });
-    //return { ret };
   }
-  //search 인풋 받을 state 변수
-  const [searchBook, setSearchBook] = useState();
   //뷰에 보일 book 구성할 state 변수
   const [books, setBooks] = useState(
     []
     //JSON.parse(localStorage.getItem("books") || "[]")
   );
-
-  //뷰에 보일 book를 구성하기 위한 로컬스토리지 값
-  const localBooks = JSON.parse(localStorage.getItem("books"));
-
-  //search Input태그의 onchange값 제어
-  const changeHandler = (event) => {
-    setSearchBook(event.target.value); //input값 조정하기 위해서 필요
-    //filter를 통해 로컬스토리지배열 객체 내부 title 값에 event.target.balue값이 들어가는 경우 그 객체 저장
-    const filterBooks = localBooks.filter((element) =>
-      element.title.match(event.target.value)
-    );
-    //인풋값이 있으면 filterbooks 보여줌
-    if (event.target.value) {
-      setBooks(filterBooks);
-    } else {
-      //인풋값이 없으면 그냥 로컬스토리지 모든 책 보여줌
-      setBooks(JSON.parse(localStorage.getItem("books")));
-    }
-  };
 
   const gotoCreate = () => {
     history.push("/createbook");
@@ -61,16 +38,6 @@ function DrawMain({ history }) {
     <DrawMainWrap>
       <div className="container">
         <Title className="title" />
-        <form>
-          {/*<img src={searchIcon} className="searchIcon" />*/}
-          <input
-            className="searchInput"
-            type="text"
-            value={searchBook}
-            onChange={changeHandler}
-            placeholder="검색어를 입력하세요"
-          ></input>
-        </form>
         <BookListContainer>
           {books &&
             books.map((book, index) => <BookList book={book} key={index} />)}
@@ -79,7 +46,7 @@ function DrawMain({ history }) {
           onClick={gotoCreate}
           className="btn-create"
           size="large"
-          color="gray"
+          color="brwn"
         >
           책 추가
         </Button>
@@ -93,7 +60,7 @@ export default DrawMain;
 const BookListContainer = styled.div`
   margin-top: 30px;
   margin-left: 56px;
-  height: 381px;
+  height: 421px;
   width: 598px;
   overflow-y: scroll;
 `;
@@ -105,13 +72,13 @@ const DrawMainWrap = styled.div`
   align-items: center;
   justify-content: center;
   .title {
-    margin-top: 104px;
-    margin-left: 56px;
+    margin-top: 94px;
+    margin-left: 66px;
   }
   .container {
     width: 710px;
     height: 777px;
-    background: #f5f5f5;
+    background: #fdf0bc;
     box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.15);
     border-radius: 70px;
   }
@@ -120,15 +87,12 @@ const DrawMainWrap = styled.div`
     margin-left: 56px;
     width: 585px;
     height: 40px;
-    background: #e7e7e7;
     border-radius: 10px;
     display: flex;
     input {
       border: none;
       outline: none;
-      background: #e7e7e7;
       margin-left: 13px;
-      font-family: Noto Sans Tai Viet;
       font-style: normal;
       font-weight: normal;
       font-size: 18px;

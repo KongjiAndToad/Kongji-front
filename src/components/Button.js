@@ -6,8 +6,8 @@ function Button({ children, size, color, ...rest }) {
     <ThemeProvider
       theme={{
         palette: {
-          gray: "rgb(190,190,190)",
-          white: "rgb(255,255,255)",
+          brwn: "rgb(195,175,140)",
+          txtcolor: "rgb(254,255,205)",
         },
       }}
     >
@@ -49,21 +49,20 @@ const colorStyles = css`
 `;
 
 const StyledButton = styled.button`
-/*공통 스타일*/
-outline: none;
-border: none;
-border-radius: 10px;
-color: white:
-cursor: pointer;
-padding-top: 5px;
-padding-bottom: 5px;
-text-align: center;
-font-family: Noto Sans Tai Viet;
-font-style: normal;
-font-weight: normal;
-font-size: 18px;
-letter-spacing: 0.03em;
-color: #FFFFFF;
-${sizeStyles}
-${colorStyles}
+  /*공통 스타일*/
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  color: txtcolor;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  ${sizeStyles}
+  ${colorStyles}
 `;

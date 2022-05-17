@@ -17,7 +17,7 @@ const TitleWrap = styled.div`
     font-family: Pompiere;
     font-style: normal;
     font-weight: normal;
-    font-size: 48px;
+    font-size: 64px;
     letter-spacing: 0.03em;
     color: #000000;
     margin-bottom: 15px;
